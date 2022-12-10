@@ -11,8 +11,8 @@ class SurfController extends AbstractController
     #[Route('/surf/', name: 'surf_index')]
     public function index(): Response
     {
-        return new Response(
-            '<html><body>Surf Index</body></html>'
-        );
+        return $this->render('surf/index.html.twig', [
+            'website' => 'Surf Shack',
+        ]);
     }
 }
