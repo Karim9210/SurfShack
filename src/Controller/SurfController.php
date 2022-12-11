@@ -6,9 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/surf', name: 'surf_')]
 class SurfController extends AbstractController
 {
-    #[Route('/surf/', name: 'surf_index')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->render('surf/index.html.twig', [
