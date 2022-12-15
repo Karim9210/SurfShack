@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,6 +34,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $pseudo = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SurfBoard::class)]
+    private Collection $surfBoards;
+
+    public function __construct()
+    {
+        $this->surfBoards = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +133,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SurfBoard>
+     */
+    public function getSurfBoards(): Collection
+    {
+        return $this->surfBoards;
+    }
+
+    public function addSurfBoard(SurfBoard $surfBoard): self
+    {
+        if (!$this->surfBoards->contains($surfBoard)) {
+            $this->surfBoards->add($surfBoard);
+            $surfBoard->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSurfBoard(SurfBoard $surfBoard): self
+    {
+        if ($this->surfBoards->removeElement($surfBoard)) {
+            // set the owning side to null (unless already changed)
+            if ($surfBoard->getUser() === $this) {
+                $surfBoard->setUser(null);
+            }
+        }
 
         return $this;
     }
