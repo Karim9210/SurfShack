@@ -1,6 +1,6 @@
 {% block navbar %}
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light p-2 shadow">
 		<a class="navbar-brand" href="#">My SurfShack</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -11,6 +11,30 @@
 				<a class="nav-item nav-link" href="#">Add a board</a>
 				<a class="nav-item nav-link" href="#">My profil</a>
 				{# <a class="nav-item nav-link disabled" href="#">Disabled</a> #}
+
+				<div class="d-flex align-items-baseline gap-5  ">
+					{% if app.user %}
+						<div class="d-flex flex-column pb-2 ">
+							<div class="nav-item active d-none d-md-block pb-0 mr-5 d-flex align-items-center">
+								<p class="text-lightPrimary pb-0 mb-0">
+									{{ app.user.pseudo|capitalize }}'s SurfShack
+								</p>
+							</div>
+							<div style="font-size:13px;">
+								<a href="{{ path('app_logout')}}">
+									<p class="text-center" style=" color:grey">Logout
+									</p>
+								</a>
+							</div>
+
+						</div>
+					{% endif %}
+					{# 
+													<div class="ms-auto">
+														<img src={{ asset('build/images/secretCellarLogo.svg') }} height="70">
+													</div>
+												 #}
+				</div>
 			</div>
 		</div>
 	</nav>
