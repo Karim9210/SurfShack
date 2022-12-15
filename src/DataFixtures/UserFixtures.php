@@ -9,7 +9,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -17,49 +16,67 @@ class UserFixtures extends Fixture
         $this->passwordHasher = $passwordHasher;
     }
 
+    public const PREFIX = "user_";
+    public const USER = [
+        [
+            "pseudo" => "admin",
+            "email" => "admin@admin.fr",
+            "password" => "admin",
+            "picture" => "",
+            "role" => ["ROLE_ADMIN"],
+        ],
+        [
+            "pseudo" => "MARY",
+            "email" => "mary@mary.fr",
+            "password" => "mary",
+            "picture" => "",
+            "role" => ["ROLE_USER"]
+        ],
+        [
+            "pseudo" => "MARYs",
+            "email" => "mary@marys.fr",
+            "password" => "marys",
+            "picture" => "",
+            "role" => ["ROLE_USER"]
+        ],
+        [
+            "pseudo" => "MARYsf",
+            "email" => "mary@marysf.fr",
+            "password" => "maryfs",
+            "picture" => "",
+            "role" => ["ROLE_USER"]
+        ],
+        [
+            "pseudo" => "MARYgs",
+            "email" => "mary@marygs.fr",
+            "password" => "margys",
+            "picture" => "",
+            "role" => ["ROLE_USER"]
+        ],
+        [
+            "pseudo" => "aMARYs",
+            "email" => "amary@marys.fr",
+            "password" => "amarys",
+            "picture" => "",
+            "role" => ["ROLE_USER"]
+        ],
+
+    ];
 
     public function load(ObjectManager $manager): void
     {
-        // Création d’un utilisateur de type “contributeur” (= auteur)
-        $surfer1 = new User();
-        $surfer1->setEmail('surfer1@monsite.com');
-        $surfer1->setPseudo('surfer1');
-        $surfer1->setRoles(['ROLE_CONTRIBUTOR']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $surfer1,
-            'surfer1password'
-        );
+        foreach (self::USER as $key => $userIndex) {
+            $user = new User();
+            $user
+                ->setPseudo($userIndex['pseudo'])
+                ->setEmail($userIndex['email'])
+                ->setPassword($userIndex['password'])
+                ->setPicture($userIndex['picture'])
+                ->setRoles($userIndex["role"]);
+            $manager->persist($user);
+            $this->addReference(self::PREFIX . ($key + 1), $user);
 
-        $surfer1->setPassword($hashedPassword);
-        $manager->persist($surfer1);
-
-        // Création d’un utilisateur de type “administrateur”
-        $admin = new User();
-        $admin->setEmail('admin@monsite.com');
-        $admin->setPseudo('admin');
-
-        $admin->setRoles(['ROLE_ADMIN']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $admin,
-            'adminpassword'
-        );
-        $admin->setPassword($hashedPassword);
-        $manager->persist($admin);
-
-
-        $surfer2 = new User();
-        $surfer2->setEmail('surfer2@monsite.com');
-        $surfer2->setPseudo('surfer2');
-
-        $surfer2->setRoles(['ROLE_CONTRIBUTOR']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $surfer2,
-            'surfer2password'
-        );
-
-        $surfer2->setPassword($hashedPassword);
-        $manager->persist($surfer2);
-        // Sauvegarde des 2 nouveaux utilisateurs :
-        $manager->flush();
+            $manager->flush();
+        }
     }
 }
