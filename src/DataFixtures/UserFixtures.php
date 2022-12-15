@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
         // Création d’un utilisateur de type “contributeur” (= auteur)
         $surfer1 = new User();
         $surfer1->setEmail('surfer1@monsite.com');
+        $surfer1->setPseudo('surfer1');
         $surfer1->setRoles(['ROLE_CONTRIBUTOR']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $surfer1,
@@ -35,6 +36,8 @@ class UserFixtures extends Fixture
         // Création d’un utilisateur de type “administrateur”
         $admin = new User();
         $admin->setEmail('admin@monsite.com');
+        $admin->setPseudo('admin');
+
         $admin->setRoles(['ROLE_ADMIN']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $admin,
@@ -46,6 +49,8 @@ class UserFixtures extends Fixture
 
         $surfer2 = new User();
         $surfer2->setEmail('surfer2@monsite.com');
+        $surfer2->setPseudo('surfer2');
+
         $surfer2->setRoles(['ROLE_CONTRIBUTOR']);
         $hashedPassword = $this->passwordHasher->hashPassword(
             $surfer2,
