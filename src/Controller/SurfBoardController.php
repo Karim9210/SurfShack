@@ -8,6 +8,8 @@ use App\Repository\SurfBoardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/surf/board')]
@@ -22,7 +24,7 @@ class SurfBoardController extends AbstractController
     }
 
     #[Route('/new', name: 'app_surf_board_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SurfBoardRepository $surfBoardRepository): Response
+    public function new(Request $request, SurfBoardRepository $surfBoardRepository, MailerInterface $mailer): Response
     {
         $surfBoard = new SurfBoard();
         $form = $this->createForm(SurfBoardType::class, $surfBoard);
@@ -30,6 +32,14 @@ class SurfBoardController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $surfBoardRepository->save($surfBoard, true);
+
+            $email = (new Email())
+                ->from($this->getParameter('mailer_from'))
+                ->to('your_email@example.com')
+                ->subject('New Board !')
+                ->html($this->renderView('surf_board/newSurfBoardEmail.html.twig', ['surfboard' => $surfBoard]));
+
+            $mailer->send($email);
 
             return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
         }
