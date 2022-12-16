@@ -2,6 +2,7 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 
+use App\Repository\SurfBoardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,19 +11,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class SurfController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(SurfBoardRepository $surfBoardRepository): Response
     {
+        $surfs = $surfBoardRepository->findAll();
         return $this->render('surf/index.html.twig', [
-            'website' => 'Surf Shack',
+            'surfs' => $surfs,
         ]);
     }
 
 
-    #[Route('/show/{id}', name: 'app_surf_show', methods: ['GET'], requirements: ['id' => '\d+'])]
-    public function show(): Response
+    #[Route('/show/{id<^[0-9]+$>}', name: 'app_surf_show', methods: ['GET'], requirements: ['id' => '\d+'])]
+    public function show(int $id, SurfBoardRepository $surfBoardRepository): Response
     {
+        $surfs = $surfBoardRepository->findOneBy(['id' => $id]);
+        if (!$surfs) {
+            throw $this->createNotFoundException(
+                'No surf with id : ' . $id . ' found in surfboards\'s table.'
+            );
+        }
         return $this->render('surf/show.html.twig', [
-            'website' => 'Your boards :',
+            'surfs' => $surfs,
         ]);
     }
 }
