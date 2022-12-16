@@ -2,6 +2,7 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 
+use App\Entity\SurfBoard;
 use App\Repository\SurfBoardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +22,11 @@ class SurfController extends AbstractController
 
 
     #[Route('/show/{id<^[0-9]+$>}', name: 'app_surf_show', methods: ['GET'], requirements: ['id' => '\d+'])]
-    public function show(int $id, SurfBoardRepository $surfBoardRepository): Response
+    public function show(SurfBoard $surfs): Response
     {
-        $surfs = $surfBoardRepository->findOneBy(['id' => $id]);
         if (!$surfs) {
             throw $this->createNotFoundException(
-                'No surf with id : ' . $id . ' found in surfboards\'s table.'
+                'No surf with this id found in surfboards\'s table.'
             );
         }
         return $this->render('surf/show.html.twig', [
