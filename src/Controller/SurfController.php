@@ -18,7 +18,7 @@ class SurfController extends AbstractController
     }
 
 
-    #[Route('/show/{id}', name: 'app_surf_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_surf_show', methods: ['GET'], requirements: ['id' => '\d+'])]
     public function show(): Response
     {
         return $this->render('surf/show.html.twig', [
