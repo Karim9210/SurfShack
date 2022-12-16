@@ -24,6 +24,8 @@ class SurfBoardFixtures extends Fixture implements DependentFixtureInterface
             'Brand' => 'Mc Tavish',
             'Review' => 'Very good board',
             'Price' => 900,
+            'owner_id' => 2,
+
         ],
         [
             'user_id' => 2,
@@ -37,6 +39,8 @@ class SurfBoardFixtures extends Fixture implements DependentFixtureInterface
             'Brand' => 'MixMix',
             'Review' => 'Very good board',
             'Price' => 600,
+            'owner_id' => 2,
+
         ],
         [
             'user_id' => 2,
@@ -50,6 +54,7 @@ class SurfBoardFixtures extends Fixture implements DependentFixtureInterface
             'Brand' => 'Channel island',
             'Review' => 'Very good board',
             'Price' => 800,
+            'owner_id' => 2,
         ],
 
     ];
@@ -70,8 +75,8 @@ class SurfBoardFixtures extends Fixture implements DependentFixtureInterface
             $surf->setWidth($surfBoardIndex['Width']);
             $surf->setPrice($surfBoardIndex['Price']);
             $surf->setReview($surfBoardIndex['Review']);
+            $surf->setOwner($this->getReference(UserFixtures::PREFIX . $surfBoardIndex['owner_id']));
             $surf->setUser($this->getReference(UserFixtures::PREFIX . $surfBoardIndex['user_id']));
-
             $this->addReference(self::PREFIX . $key, $surf);
             $manager->persist($surf);
         }

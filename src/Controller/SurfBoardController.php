@@ -5,25 +5,31 @@ namespace App\Controller;
 use App\Entity\SurfBoard;
 use App\Form\SurfBoardType;
 use App\Repository\SurfBoardRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 #[Route('/surf/board')]
+// #[IsGranted]
 class SurfBoardController extends AbstractController
 {
-    #[Route('/', name: 'app_surf_board_index', methods: ['GET'])]
-    public function index(SurfBoardRepository $surfBoardRepository): Response
-    {
-        return $this->render('surf_board/index.html.twig', [
-            'surf_boards' => $surfBoardRepository->findAll(),
-        ]);
-    }
+    // #[Route('/', name: 'app_surf_board_index', methods: ['GET'])]
+    // #[IsGranted('ROLE_ADMIN')]
+    // public function index(SurfBoardRepository $surfBoardRepository): Response
+    // {
+    //     return $this->render('surf_board/index.html.twig', [
+    //         'surf_boards' => $surfBoardRepository->findAll(),
+    //     ]);
+    // }
 
     #[Route('/new', name: 'app_surf_board_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, SurfBoardRepository $surfBoardRepository, MailerInterface $mailer): Response
     {
         $surfBoard = new SurfBoard();
@@ -31,6 +37,7 @@ class SurfBoardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $surfBoard->setOwner($this->getUser());
             $surfBoardRepository->save($surfBoard, true);
 
             $email = (new Email())
@@ -41,7 +48,7 @@ class SurfBoardController extends AbstractController
 
             $mailer->send($email);
 
-            return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_surf_board_show', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('surf_board/new.html.twig', [
@@ -51,16 +58,22 @@ class SurfBoardController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_surf_board_show', methods: ['GET'])]
-    public function show(SurfBoard $surfBoard): Response
+    #[IsGranted('ROLE_USER')]
+    public function show(SurfBoardRepository $surfBoard): Response
     {
         return $this->render('surf_board/show.html.twig', [
-            'surf_board' => $surfBoard,
+            'surf_boards' => $surfBoard,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_surf_board_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function edit(Request $request, SurfBoard $surfBoard, SurfBoardRepository $surfBoardRepository): Response
     {
+        if ($this->getUser() !== $surfBoard->getOwner()) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw $this->createAccessDeniedException('Only the owner can edit the program!');
+        }
         $form = $this->createForm(SurfBoardType::class, $surfBoard);
         $form->handleRequest($request);
 
@@ -77,6 +90,7 @@ class SurfBoardController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_surf_board_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function delete(Request $request, SurfBoard $surfBoard, SurfBoardRepository $surfBoardRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $surfBoard->getId(), $request->request->get('_token'))) {

@@ -58,6 +58,9 @@ class SurfBoard
     #[ORM\ManyToOne(inversedBy: 'surfBoards')]
     private ?User $user = null;
 
+    #[ORM\ManyToOne]
+    private ?User $owner = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -227,6 +230,18 @@ class SurfBoard
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

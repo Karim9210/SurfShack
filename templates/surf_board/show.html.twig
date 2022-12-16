@@ -1,8 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SurfBoard{% endblock %}
+{% block title %}SurfBoard
+{% endblock %}
 
 {% block body %}
+	<h1>SurfBoard index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nickname</th>
+				<th>Length</th>
+				<th>Width</th>
+				<th>Thickness</th>
+				<th>Type</th>
+				<th>Material</th>
+				<th>Shaper</th>
+				<th>Brand</th>
+				<th>Review</th>
+				<th>DatePurchase</th>
+				<th>Price</th>
+				<th>New</th>
+				<th>Picture</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for surf_board in surf_boards %}
+				<tr>
+					<td>{{ surf_board.id }}</td>
+					<td>{{ surf_board.nickname }}</td>
+					<td>{{ surf_board.length }}</td>
+					<td>{{ surf_board.width }}</td>
+					<td>{{ surf_board.thickness }}</td>
+					<td>{{ surf_board.type }}</td>
+					<td>{{ surf_board.material }}</td>
+					<td>{{ surf_board.shaper }}</td>
+					<td>{{ surf_board.brand }}</td>
+					<td>{{ surf_board.review }}</td>
+					<td>{{ surf_board.datePurchase ? surf_board.datePurchase|date('Y-m-d') : '' }}</td>
+					<td>{{ surf_board.price }}</td>
+					<td>{{ surf_board.new ? 'Yes' : 'No' }}</td>
+					<td>{{ surf_board.picture }}</td>
+					<td>
+						<a href="{{ path('app_surf_board_show', {'id': surf_board.id}) }}">show</a>
+						<a href="{{ path('app_surf_board_edit', {'id': surf_board.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="15">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_surf_board_new') }}">Create new</a>
+{% endblock %}
+
+
+{# {% block body %}
     <h1>SurfBoard</h1>
 
     <table class="table">
@@ -71,4 +129,4 @@
     <a href="{{ path('app_surf_board_edit', {'id': surf_board.id}) }}">edit</a>
 
     {{ include('surf_board/_delete_form.html.twig') }}
-{% endblock %}
+{% endblock %} #}
