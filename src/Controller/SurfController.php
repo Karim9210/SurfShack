@@ -16,4 +16,13 @@ class SurfController extends AbstractController
             'website' => 'Surf Shack',
         ]);
     }
+
+
+    #[Route('/show/{id}', name: 'app_surf_show', methods: ['GET'])]
+    public function show(): Response
+    {
+        return $this->render('surf/show.html.twig', [
+            'website' => 'Your boards :',
+        ]);
+    }
 }
