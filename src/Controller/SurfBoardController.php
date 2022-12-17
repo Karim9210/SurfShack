@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\SurfBoard;
+use App\Entity\User;
 use App\Form\SurfBoardType;
 use App\Repository\SurfBoardRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -12,21 +13,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 #[Route('/surf/board')]
 // #[IsGranted]
 class SurfBoardController extends AbstractController
 {
-    // #[Route('/', name: 'app_surf_board_index', methods: ['GET'])]
-    // #[IsGranted('ROLE_ADMIN')]
-    // public function index(SurfBoardRepository $surfBoardRepository): Response
-    // {
-    //     return $this->render('surf_board/index.html.twig', [
-    //         'surf_boards' => $surfBoardRepository->findAll(),
-    //     ]);
-    // }
+    #[Route('/', name: 'app_surf_board_index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function index(SurfBoardRepository $surfBoardRepository): Response
+    {
+        /** @var User */
+        $user = $this->getUser();
+
+        return $this->render('surf_board/index.html.twig', [
+            'surf_boards' => $surfBoardRepository->findByOwner($user),
+            'user' => $user,
+
+        ]);
+    }
 
     #[Route('/new', name: 'app_surf_board_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
@@ -38,6 +43,7 @@ class SurfBoardController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $surfBoard->setOwner($this->getUser());
+
             $surfBoardRepository->save($surfBoard, true);
 
             $email = (new Email())
@@ -48,7 +54,7 @@ class SurfBoardController extends AbstractController
 
             $mailer->send($email);
 
-            return $this->redirectToRoute('app_surf_board_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('surf_board/new.html.twig', [
@@ -59,10 +65,11 @@ class SurfBoardController extends AbstractController
 
     #[Route('/{id}', name: 'app_surf_board_show', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
-    public function show(SurfBoardRepository $surfBoard): Response
+    public function show(SurfBoard $surfBoard): Response
     {
         return $this->render('surf_board/show.html.twig', [
-            'surf_boards' => $surfBoard,
+            'surf_board' => $surfBoard,
+
         ]);
     }
 
