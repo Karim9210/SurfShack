@@ -7,6 +7,7 @@
 	<h1>SurfBoard
 		{{ surf_board.nickname }}</h1>
 
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -27,6 +28,7 @@
 				<th>actions</th>
 			</tr>
 		</thead>
+
 		<tbody>
 			<tr>
 				<td>{{ surf_board.nickname }}</td>
@@ -52,73 +54,3 @@
 
 	<a href="{{ path('app_surf_board_new') }}">Create new</a>
 {% endblock %}
-{# {% block body %}
-				    <h1>SurfBoard</h1>
-				
-				    <table class="table">
-				        <tbody>
-				            <tr>
-				                <th>Id</th>
-				                <td>{{ surf_board.id }}</td>
-				            </tr>
-				            <tr>
-				                <th>Nickname</th>
-				                <td>{{ surf_board.nickname }}</td>
-				            </tr>
-				            <tr>
-				                <th>Length</th>
-				                <td>{{ surf_board.length }}</td>
-				            </tr>
-				            <tr>
-				                <th>Width</th>
-				                <td>{{ surf_board.width }}</td>
-				            </tr>
-				            <tr>
-				                <th>Thickness</th>
-				                <td>{{ surf_board.thickness }}</td>
-				            </tr>
-				            <tr>
-				                <th>Type</th>
-				                <td>{{ surf_board.type }}</td>
-				            </tr>
-				            <tr>
-				                <th>Material</th>
-				                <td>{{ surf_board.material }}</td>
-				            </tr>
-				            <tr>
-				                <th>Shaper</th>
-				                <td>{{ surf_board.shaper }}</td>
-				            </tr>
-				            <tr>
-				                <th>Brand</th>
-				                <td>{{ surf_board.brand }}</td>
-				            </tr>
-				            <tr>
-				                <th>Review</th>
-				                <td>{{ surf_board.review }}</td>
-				            </tr>
-				            <tr>
-				                <th>DatePurchase</th>
-				                <td>{{ surf_board.datePurchase ? surf_board.datePurchase|date('Y-m-d') : '' }}</td>
-				            </tr>
-				            <tr>
-				                <th>Price</th>
-				                <td>{{ surf_board.price }}</td>
-				            </tr>
-				            <tr>
-				                <th>New</th>
-				                <td>{{ surf_board.new ? 'Yes' : 'No' }}</td>
-				            </tr>
-				            <tr>
-				                <th>Picture</th>
-				                <td>{{ surf_board.picture }}</td>
-				            </tr>
-				        </tbody>
-				    </table>
-				
-				    <a href="{{ path('app_surf_board_index') }}">back to list</a>
-				
-				    <a href="{{ path('app_surf_board_edit', {'id': surf_board.id}) }}">edit</a>
-				
-				    {{ include('surf_board/_delete_form.html.twig') }}
-				{% endblock %} #}

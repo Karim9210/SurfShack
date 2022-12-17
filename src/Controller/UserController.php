@@ -68,7 +68,7 @@ class UserController extends AbstractController
             $id = $user->getId();
             $user = $this->getUser();
 
-            $this->addFlash('success', 'Vous avez bien modifié votre profil !');
+            $this->addFlash('success', 'Your profile has been updated !');
             return $this->redirectToRoute('app_user_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
