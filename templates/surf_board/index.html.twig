@@ -50,7 +50,7 @@
 					<td>{{ surf_board.datePurchase ? surf_board.datePurchase|date('Y-m-d') : '' }}</td>
 					<td>{{ surf_board.price }}</td>
 					<td>{{ surf_board.new ? 'Yes' : 'No' }}</td>
-					<td>{{ surf_board.picture }}</td>
+					<td>{{ surf_board.boardPictureFile }}</td>
 					<td>
 						<a href="{{ path('app_surf_board_show', {'id': surf_board.id}) }}">show</a>
 						<a href="{{ path('app_surf_board_edit', {'id': surf_board.id}) }}">edit</a>

@@ -3,12 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\SurfBoardRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SurfBoardRepository::class)]
 #[Assert\EnableAutoMapping]
+#[Vich\Uploadable]
+
 class SurfBoard
 {
     #[ORM\Id]
@@ -53,7 +59,13 @@ class SurfBoard
     private ?bool $new = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $picture = null;
+    private ?string $boardPicture = null;
+
+    #[Vich\UploadableField(mapping: 'boardPicture_file', fileNameProperty: 'boardPicture')]
+    private ?File $boardPictureFile = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTimeInterface $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'surfBoards')]
     private ?User $user = null;
@@ -210,18 +222,6 @@ class SurfBoard
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -242,6 +242,60 @@ class SurfBoard
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function setBoardPictureFile(File $image = null): SurfBoard
+    {
+        $this->boardPictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getBoardPictureFile(): ?File
+    {
+        return $this->boardPictureFile;
+    }
+
+    /**
+     * Get the value of updatedAt
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the value of updatedAt
+     *
+     * @return  self
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of boardPicture
+     */
+    public function getBoardPicture()
+    {
+        return $this->boardPicture;
+    }
+
+    /**
+     * Set the value of boardPicture
+     *
+     * @return  self
+     */
+    public function setBoardPicture($boardPicture)
+    {
+        $this->boardPicture = $boardPicture;
 
         return $this;
     }
