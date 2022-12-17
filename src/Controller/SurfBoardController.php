@@ -53,7 +53,7 @@ class SurfBoardController extends AbstractController
                 ->html($this->renderView('surf_board/newSurfBoardEmail.html.twig', ['surfboard' => $surfBoard]));
 
             $mailer->send($email);
-
+            $this->addFlash('success', 'You just add a new board !');
             return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -86,6 +86,7 @@ class SurfBoardController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $surfBoardRepository->save($surfBoard, true);
+            $this->addFlash('success', 'Your board has been updated !');
 
             return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -103,6 +104,7 @@ class SurfBoardController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $surfBoard->getId(), $request->request->get('_token'))) {
             $surfBoardRepository->remove($surfBoard, true);
         }
+        $this->addFlash('success', 'Your board has been deleted !');
 
         return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
     }

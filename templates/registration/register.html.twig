@@ -1,44 +1,3 @@
-{# {% extends 'base.html.twig' %}
-
-{% block title %}Register
-{% endblock %}
-
-{% block body %}
-	<div class="bg-lightPrimary ">
-		<div class="bg-lightSecondary pt-4 w-100" style="height: 180px">
-			<div style="border-bottom:solid; border-bottom-color:var(--prune)">
-				<h1 class="pt-2 ps-2 mt-5 mx-5 text-prune" style="letter-spacing:5px">
-					Register
-				</h1>
-			</div>
-		</div>
-
-		<div class="d-flex  justify-content-center align-items-center" style="height:80vh;">
-			<div class="mb-5 p-2 d-flex flex-column">
-				<div class="text-center">
-					<img src="{{ asset('build/images/secretCellarLogoregister.svg') }}" width="60%" alt="logo secretCellar">
-				</div>
-
-				{{ form_start(registrationForm) }}
-				<div class="container">
-					{{ form_row(registrationForm.pseudo) }}
-					{{ form_row(registrationForm.email) }}
-
-					{{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-					{{ form_row(registrationForm.agreeTerms) }}
-
-
-					<div class="d-flex justify-content-center">
-						<button type="submit" class="btn bg-prune text-lightPrimary mb-3 mt-3">Register</button>
-					</div>
-					{{ form_end(registrationForm) }}
-				</div>
-			</div>
-		</div>
-	{% endblock %} #}
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -71,7 +30,6 @@
 				</div>
 			</div>
 
-			{#************* FORMULAIRE D'INSCRIPTION *********#}
 			<div class="d-flex  justify-content-center align-items-center" style="height:100vh;">
 				<div class="mb-5 p-2 d-flex flex-column">
 					<div class="text-center">

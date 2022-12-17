@@ -5,7 +5,13 @@
 
 {% block body %}
 	<h1>User</h1>
-
+	{% for success, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="alert alert-{{ success }}">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endfor %}
 	<table class="table">
 		<tbody>
 			<tr>
