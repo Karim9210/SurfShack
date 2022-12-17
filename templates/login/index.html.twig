@@ -1,40 +1,42 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Login</title>
+		<link rel="stylesheet" href="assets/styles/app.scss">
+		<link rel="stylesheet" href="/assets/css/style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display&family=Playfair+Display+SC&family=Prata&display=swap" rel="stylesheet">
 
-{% block title %}Login
-{% endblock %}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-{# {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	{% block title %}Login
+	{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/jojo/projets/SurfShack/SurfShack/src/Controller/LoginController.php'|file_link(0) }}">src/Controller/LoginController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/jojo/projets/SurfShack/SurfShack/templates/login/index.html.twig'|file_link(0) }}">templates/login/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %} #}
-{% block body %}
-	{% if error %}
-		<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-	{% endif %}
+	{% block body %}
+		{% if error %}
+			<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
-	<form action="{{ path('app_login') }}" method="post">
-		<label for="username">Email:</label>
-		<input type="text" id="username" name="_username" value="{{ last_username }}">
+		<form action="{{ path('app_login') }}" method="post">
+			<label for="username">Email:</label>
+			<input type="_username" id="username" name="_username" value="{{ last_username }}">
 
-		<label for="password">Password:</label>
-		<input
-		type="password" id="password" name="_password">
+			<label for="_password">Password:</label>
+			<input type="_password" id="password" name="_password">
 
-		{# If you want to control the URL the user is redirected to on success #}
-		<input type="hidden" name="_target_path" value="/surf/board/">
-		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-		<button type="submit">login</button>
-	</form>
-{% endblock %}
+			<input type="hidden" name="_target_path" value="/surf/board/">
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<button type="submit">login</button>
+		</form>
+	{% endblock %}
+</html>
