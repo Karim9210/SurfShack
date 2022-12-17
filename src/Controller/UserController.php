@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -43,6 +44,8 @@ class UserController extends AbstractController
     //     ]);
     // }
 
+
+
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function show(User $user): Response
@@ -59,11 +62,7 @@ class UserController extends AbstractController
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        // $id = $this->getUser();
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $userRepository->save($user, true);
 
-        //     return $this->redirectToRoute('app_user_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->save($user, true);
             $id = $user->getId();
@@ -79,14 +78,32 @@ class UserController extends AbstractController
         ]);
     }
 
+    // #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    // #[IsGranted('ROLE_USER')]
+    // public function delete(Request $request, User $user, UserRepository $userRepository, SurfBoardRepository $surfBoardRepository, SurfBoard $surfBoard): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+    //         $userRepository->remove($user, true);
+    //         $surfBoardRepository->remove($surfBoard, true);
+    //     }
+
+    //     return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    // }
+
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
-    {
+    public function delete(
+        Request $request,
+        User $user,
+        UserRepository $userRepository,
+        TokenStorageInterface $tokenStorage
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user, true);
+            $request->getSession()->invalidate();
+            $tokenStorage->setToken(null);
+            return $this->redirectToRoute('app_login');
         }
-
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()]);
     }
 }
