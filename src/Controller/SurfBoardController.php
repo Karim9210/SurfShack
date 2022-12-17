@@ -79,7 +79,7 @@ class SurfBoardController extends AbstractController
     {
         if ($this->getUser() !== $surfBoard->getOwner()) {
             // If not the owner, throws a 403 Access Denied exception
-            throw $this->createAccessDeniedException('Only the owner can edit the program!');
+            throw $this->createAccessDeniedException('Only the owner can edit the surfboard!');
         }
         $form = $this->createForm(SurfBoardType::class, $surfBoard);
         $form->handleRequest($request);
