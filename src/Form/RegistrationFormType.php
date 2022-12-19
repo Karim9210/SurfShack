@@ -22,11 +22,16 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('pseudo', TextType::class, [
                 'required'  => true,
+                'label' => false,
             ])
 
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'required'  => true,
+                'label' => false,
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => false,
                 'required' => true,
                 'constraints' => [
                     new IsTrue([
@@ -34,16 +39,29 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            // ->add('isMajeur', CheckboxType::class, [
+            //     // 'mapped' => false,
+            //     'required' => true,
+            //     'constraints' => [
+            //         new IsTrue([
+            //             'message' => 'Vous devez être majeur pour vous connecter.',
+
+            //         ]),
+            //     ],
+            //     'label' => 'Je suis majeur.',
+            // ]);
             ->add('pictureFile', VichFileType::class, [
                 'required'      => false,
-                'allow_delete'  => true, // not mandatory, default is true
-                'download_uri' => true, // not mandatory, default is true
+                'label' => false,
+                'allow_delete'  => false, // not mandatory, default is true
+                'download_uri' => false, // not mandatory, default is true
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'label' => 'Password',
+                'label' => false,
+
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
