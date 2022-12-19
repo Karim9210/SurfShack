@@ -1,15 +1,15 @@
 {% block navbar %}
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light p-2 shadow">
-		<a class="navbar-brand" href="{{ path('app_surf_board_index') }}">My SurfShack</a>
+	<nav class="navbar navbar-expand-lg navbar-light bg-info p-2 shadow text-white">
+		<a class="navbar-brand text-white" href="{{ path('app_surf_board_index') }}">My SurfShack</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
 
-				<a class="nav-item nav-link" href="{{ path('app_surf_board_new') }}">Add a board</a>
-				<a class="nav-item nav-link" href="{{ path('app_user_show', {id:app.user.id}) }}">My profil</a>
+				<a class="nav-item nav-link text-white" href="{{ path('app_surf_board_new') }}">Add a board</a>
+				<a class="nav-item nav-link text-white" href="{{ path('app_user_show', {id:app.user.id}) }}">My profil</a>
 				{# <a class="nav-item nav-link disabled" href="#">Disabled</a> #}
 
 				<div class="d-flex align-items-baseline gap-5  ">
@@ -22,18 +22,18 @@
 							</div>
 							<div style="font-size:13px;">
 								<a href="{{ path('app_logout')}}">
-									<p class="text-center" style=" color:grey">Logout
+									<p class="text-center text-white" style=" color:grey">Logout
 									</p>
 								</a>
 							</div>
 
 						</div>
 					{% endif %}
-					{# 
-																												<div class="ms-auto">
-																													<img src={{ asset('build/images/secretCellarLogo.svg') }} height="70">
-																												</div>
-																											 #}
+
+					<div class="ms-auto">
+						<img src={{ asset('build/images/logosurfshack.png') }} height="70">
+					</div>
+
 				</div>
 			</div>
 		</div>
