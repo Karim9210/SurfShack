@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block body %}
-	<h1>SurfBoard index</h1>
-
+	<h1>My SurfBoards
+	</h1>
 	{% for success, messages in app.flashes %}
 		{% for message in messages %}
 			<div class="alert alert-{{ success }}">
@@ -13,56 +13,34 @@
 			</div>
 		{% endfor %}
 	{% endfor %}
+	<div class="d-flex flex-wrap ">
+		{% for surf_board in surf_boards %}
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nickname</th>
-				<th>Length</th>
-				<th>Width</th>
-				<th>Thickness</th>
-				<th>Type</th>
-				<th>Material</th>
-				<th>Shaper</th>
-				<th>Brand</th>
-				<th>Review</th>
-				<th>DatePurchase</th>
-				<th>Price</th>
-				<th>New</th>
-				<th>Picture</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for surf_board in surf_boards %}
-				<tr>
-					<td>{{ surf_board.id }}</td>
-					<td>{{ surf_board.nickname }}</td>
-					<td>{{ surf_board.length }}</td>
-					<td>{{ surf_board.width }}</td>
-					<td>{{ surf_board.thickness }}</td>
-					<td>{{ surf_board.type }}</td>
-					<td>{{ surf_board.material }}</td>
-					<td>{{ surf_board.shaper }}</td>
-					<td>{{ surf_board.brand }}</td>
-					<td>{{ surf_board.review }}</td>
-					<td>{{ surf_board.datePurchase ? surf_board.datePurchase|date('Y-m-d') : '' }}</td>
-					<td>{{ surf_board.price }}</td>
-					<td>{{ surf_board.new ? 'Yes' : 'No' }}</td>
-					<td>{{ surf_board.boardPictureFile }}</td>
-					<td>
-						<a href="{{ path('app_surf_board_show', {'id': surf_board.id}) }}">show</a>
-						<a href="{{ path('app_surf_board_edit', {'id': surf_board.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="15">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
 
-	<a href="{{ path('app_surf_board_new') }}">Create new</a>
+			<div class="card m-5" style="width: 15rem;">
+				<img src="{{ vich_uploader_asset( surf_board ) }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Name:
+						{{ surf_board.nickname }}
+					</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Length :
+						{{ surf_board.length }}</h6>
+					<p class="card-text">Review :
+						{{ surf_board.review }}</p>
+					<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+						<a href="{{ path('app_surf_board_show', {'id': surf_board.id}) }}" class="btn btn-primary btn-lg">
+							<i class="fas fa-link"></i>
+							Read more</a>
+					</div>
+
+
+				</div>
+			</div>
+
+		{% else %}
+
+			<p colspan="15">no records found</p>
+
+		{% endfor %}
+	</div>
 {% endblock %}
