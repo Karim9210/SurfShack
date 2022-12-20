@@ -1,7 +1,7 @@
 //start coding by removing this file and adding yours ;)
 // // import the functions & variables
-@import "../../vendor/twbs/bootstrap/scss/_functions.scss";
-@import "../../vendor/twbs/bootstrap/scss/_variables.scss";
+// @import "../../vendor/twbs/bootstrap/scss/_functions.scss";
+// @import "../../vendor/twbs/bootstrap/scss/_variables.scss";
 
 //custom variables
 $custom-colors: (
@@ -14,8 +14,8 @@ $custom-colors: (
 $theme-colors: map-merge($custom-colors, $theme-colors);
 
 //import bootstrap
-@import "../../vendor/twbs/bootstrap/scss/bootstrap.scss";
-@import "~bootstrap/scss/bootstrap";
+// @import "../../vendor/twbs/bootstrap/scss/bootstrap.scss";
+// @import "~bootstrap/scss/bootstrap";
 
 :root {
     --font-primary: "Lato", sans-serif;
@@ -26,6 +26,8 @@ $theme-colors: map-merge($custom-colors, $theme-colors);
 
 h1 {
     font-family: var(--font-maj);
+    color: var(--mainBlue);
+
 }
 
 h2 {

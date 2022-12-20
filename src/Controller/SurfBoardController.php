@@ -40,11 +40,12 @@ class SurfBoardController extends AbstractController
         $surfBoard = new SurfBoard();
         $form = $this->createForm(SurfBoardType::class, $surfBoard);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $surfBoard->setOwner($this->getUser());
 
             $surfBoardRepository->save($surfBoard, true);
+            dd($form, $surfBoard);
+
 
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
@@ -56,6 +57,7 @@ class SurfBoardController extends AbstractController
             $this->addFlash('success', 'You just add a new board !');
             return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
         }
+        // dd($form, $surfBoard);
 
         return $this->render('surf_board/new.html.twig', [
             'surf_board' => $surfBoard,
