@@ -44,7 +44,7 @@
 					<input type="_username" value="{{ last_username ?? '' }}" name="_username" id="username" class="form-control mb-3" autocomplete="email" required autofocus>
 
 					<label for="inputPassword">Password</label>
-					<input type="_password" name="_password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
+					<input type="password" name="_password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
 
 					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 					<input type="hidden" name="_target_path" value="/surf/board/">
