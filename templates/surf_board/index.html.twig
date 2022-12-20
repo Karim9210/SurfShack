@@ -4,8 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<h1>My SurfBoards :
-	</h1>
+	<div class='m-2 d-flex justify-content-center'>
+
+		<h1 class="text-center mt-2 text-mainBlue">My Boards</h1>
+	</div>
 	{% for success, messages in app.flashes %}
 		{% for message in messages %}
 			<div class="alert alert-{{ success }}">
