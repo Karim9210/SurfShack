@@ -44,7 +44,6 @@ class SurfBoardController extends AbstractController
             $surfBoard->setOwner($this->getUser());
 
             $surfBoardRepository->save($surfBoard, true);
-            dd($form, $surfBoard);
 
 
             $email = (new Email())
