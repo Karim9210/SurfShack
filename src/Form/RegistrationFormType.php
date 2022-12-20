@@ -39,17 +39,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            // ->add('isMajeur', CheckboxType::class, [
-            //     // 'mapped' => false,
-            //     'required' => true,
-            //     'constraints' => [
-            //         new IsTrue([
-            //             'message' => 'Vous devez être majeur pour vous connecter.',
 
-            //         ]),
-            //     ],
-            //     'label' => 'Je suis majeur.',
-            // ]);
             ->add('pictureFile', VichFileType::class, [
                 'required'      => false,
                 'label' => false,
