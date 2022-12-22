@@ -46,13 +46,13 @@ class SurfBoardController extends AbstractController
             $surfBoardRepository->save($surfBoard, true);
 
 
-            $email = (new Email())
-                ->from($this->getParameter('mailer_from'))
-                ->to('your_email@example.com')
-                ->subject('New Board !')
-                ->html($this->renderView('surf_board/newSurfBoardEmail.html.twig', ['surfboard' => $surfBoard]));
+            // $email = (new Email())
+            //     ->from($this->getParameter('mailer_from'))
+            //     ->to('your_email@example.com')
+            //     ->subject('New Board !')
+            //     ->html($this->renderView('surf_board/newSurfBoardEmail.html.twig', ['surfboard' => $surfBoard]));
 
-            $mailer->send($email);
+            // $mailer->send($email);
             $this->addFlash('success', 'You just add a new board !');
             return $this->redirectToRoute('app_surf_board_index', [], Response::HTTP_SEE_OTHER);
         }
