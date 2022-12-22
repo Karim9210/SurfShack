@@ -39,7 +39,7 @@ class UserType extends AbstractType
                 'allow_delete'  => false, // not mandatory, default is true
                 'download_uri' => false, // not mandatory, default is true
             ])
-            ->add('plainPassword', PasswordType::class, [
+            ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
