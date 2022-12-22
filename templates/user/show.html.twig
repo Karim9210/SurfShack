@@ -5,7 +5,7 @@
 
 {% block body %}
 	<div class='m-2 d-flex justify-content-center'>
-		<h1 class="text-center mt-2 text-mainBlue">{{app.user.pseudo}}'s profil</h1>
+		<h1 class="text-center mt-2 text-mainBlue">{{app.user.pseudo}}'s profile</h1>
 	</div>
 
 	{% for success, messages in app.flashes %}
@@ -54,7 +54,7 @@
 				{{ include('user/_delete_form.html.twig') }}
 			</div>
 			<div class='m-2'>
-				<a class="btn btn-primary" href="{{ path('app_user_edit', {'id': user.id}) }}">Edit</a>
+				<a class="btn btn-primary" href="{{ path('app_user_edit', {'id': user.id}) }}">Update</a>
 			</div>
 		</div>
 	</div>

@@ -19,14 +19,12 @@
 	</head>
 
 	<body class="d-flex flex-column">
-
-		{% block navbar %}
-			{% include 'Component/_navbar.html.twig' %}
-		{% endblock %}
-		{% block body %}{% endblock %}
-		{% block footer %}
-			{% include 'Component/_footer.html.twig' %}
-		{% endblock %}
-
+		<div class="h-100">
+			{% block navbar %}
+				{% include 'Component/_navbar.html.twig' %}
+			{% endblock %}
+			{% block body %}{% endblock %}
+		</div>
 	</body>
-</html>
+</html></div>{% block footer %}
+{% include 'Component/_footer.html.twig' %}{% endblock %}</body></html>
