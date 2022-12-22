@@ -5,9 +5,9 @@
 
 //custom variables
 $custom-colors: (
-    "mainBlue": #0BB6FF,
-    "lightPrimary": #A8E5FF,
-    "lightSecondary": #76D6FF,
+    "mainBlue": #344D59,
+    "lightPrimary": #B8CBD0,
+    "lightSecondary": #709CA7,
 
 );
 
@@ -26,8 +26,6 @@ $theme-colors: map-merge($custom-colors, $theme-colors);
 
 h1 {
     font-family: var(--font-maj);
-    color: var(--mainBlue);
-
 }
 
 h2 {

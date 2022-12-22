@@ -1,9 +1,9 @@
 :root {
-    --lightPrimary: #A8E5FF;
-
-    --mainBlue: #0BB6FF;
+    --lightPrimary: #B8CBD0;
+    --mainBlue: #344D59;
+    --lightSecondary: #709CA7;
     --kakiOpacity: #877e605e;
-    --lightSecondary: #76D6FF;
+
     --font-primary: "Lato", sans-serif;
     --font-secondary: "Playfair Display", serif;
     --font-third: "Prata", serif;
@@ -19,6 +19,7 @@
 html,
 body {
     height: 100%;
+    background-color: var(--lightPrimary);
 }
 
 @media (max-width: 576px) {
@@ -80,10 +81,10 @@ body {
 .btn {
     border: 5px solid;
     border-image-slice: 1;
-    background: var(--gradient) !important;
+    background: var(--mainBlue) !important;
     /* -webkit-background-clip: text !important; */
     -webkit-text-fill-color: transparent !important;
-    border-image-source: var(--gradient) !important;
+    border-image-source: var(--mainBlue) !important;
     text-decoration: none;
     transition: all .4s ease;
 }

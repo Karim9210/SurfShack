@@ -1,39 +1,39 @@
 {% block navbar %}
 
 	{# <nav class="navbar bg-info navbar-expand-sm fixed-top px-5 pt-3 shadow " style="letter-spacing:2px"> #}
-	<nav class="navbar navbar-expand-sm navbar-light bg-info p-2 shadow " style="letter-spacing:1px">
+	<nav class="navbar navbar-expand-sm navbar-light bg-mainBlue p-2 shadow " style="letter-spacing:1px">
 
-		<button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			{# <img class="d-inline-block align-top " src="{{ asset('build/images/icones/Hamburger.svg') }}"/> #}
+		<button
+			type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">{# <img class="d-inline-block align-top " src="{{ asset('build/images/icones/Hamburger.svg') }}"/> #}
 		</button>
 
 		<div class="collapse navbar-collapse vh-98-md" id="navbarNav">
 
-			 
+
 			<ul class="navbar-nav pt-1 gap-5 d-flex  justify-content-md-betwen w-100 ">
 				<div class="d-flex flex-column flex-sm-row">
-					 
+
 					<li class="nav-item active">
 						<a href="{{ path('app_surf_board_index') }}" class="nav-link ">
-							<p class="text-black">My SurfShack</p>
+							<p class="text-lightPrimary">My SurfShack</p>
 						</a>
 					</li>
 					<li class="nav-item active">
 						<a href="{{ path('app_surf_board_new') }}" class="nav-link ">
-							<p class="text-black">ADD A BOARD</p>
+							<p class="text-lightPrimary">ADD A BOARD</p>
 						</a>
 					</li>
 					<li class="nav-item active">
 						<a href="{{ path('app_user_show', {id:app.user.id}) }}" class="nav-link">
-							<p class="text-black">MY PROFILE</p>
+							<p class="text-lightPrimary">MY PROFILE</p>
 						</a>
-					</li>					
+					</li>
 					<a href="{{ path('app_logout')}}" class="nav-link d-sm-none d-flex justify-content-end">
 						<i class="bi bi-box-arrow-right text-lightPrimary" style="font-size: 2em"></i>
 					</a>
 
-				</div>	
-				
+				</div>
+
 
 			</ul>
 		</div>
@@ -41,21 +41,25 @@
 			{% if app.user %}
 				<div class="d-flex flex-column pb-2 ">
 					<div class="nav-item active d-none d-md-block pb-0 mr-5 d-flex align-items-center">
-						<p class="text-black pb-0 mb-0">
+						<p class="text-lightPrimary pb-0 mb-0">
 							{{ app.user.pseudo|capitalize }}'s SurfShack
 						</p>
 					</div>
-					<div style = "font-size:13px;"><a href="{{ path('app_logout')}}"> <p class="text-center" style=" color:grey">LOGOUT </p></a></div>
-					
+					<div style="font-size:13px;">
+						<a href="{{ path('app_logout')}}">
+							<p class="text-center" style=" color:grey">LOGOUT
+							</p>
+						</a>
+					</div>
+
 				</div>
 			{% endif %}
 
-		
+
 			<div class="ms-auto">
-						<img src={{ asset('build/images/logosurfshack.png') }} height="70">
-					</div>
-		
+				<img src={{ asset('build/images/logosurfshack.png') }} height="70">
+			</div>
+
 		</div>
 	</nav>
 {% endblock %}
-
