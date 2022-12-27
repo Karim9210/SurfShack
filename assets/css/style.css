@@ -1,0 +1,43 @@
+:root {
+    --lightPrimary: #B8CBD0;
+    --mainBlue: #344D59;
+    --lightSecondary: #709CA7;
+    --kakiOpacity: #877e605e;
+
+    --font-primary: "Lato", sans-serif;
+    --font-secondary: "Playfair Display", serif;
+    --font-third: "Prata", serif;
+    --font-maj: "Playfair Display SC";
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    background-color: var(--lightPrimary);
+}
+
+@media (max-width: 576px) {
+    .navbar-collapse {
+        height: 86vh;
+    }
+
+    .responsive-font-example {
+        font-size: 15px;
+    }
+
+    .fontfooter {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 576px) {
+    .responsive-font-example {
+        font-size: 20px;
+    }
+}

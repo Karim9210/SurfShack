@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SurfBoard
+{% endblock %}
+
+{% block body %}
+	<h1>Edit SurfBoard</h1>
+	<div class="d-flex mt-5 justify-content-center align-items-center flex-column" style="height:100;">
+
+		{{ include('surf_board/_form.html.twig', {'button_label': 'Update'}) }}
+
+		{# <a href="{{ path('app_surf_board_index') }}">back to list</a> #}
+
+		{{ include('surf_board/_delete_form.html.twig') }}
+	</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SurfBoard index
+{% endblock %}
+
+{% block body %}
+
+	<div class='m-2 d-flex justify-content-center'>
+
+		<h1 class="text-center text-mainBlue">My Boards</h1>
+
+	</div>
+	<div class=' m-2 d-flex justify-content-center'>
+
+		{% for success, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{ success }}">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+	</div>
+	<div class=' m-2 d-flex justify-content-center'>
+
+		<div class="d-flex flex-wrap mb-5">
+			{% for surf_board in surf_boards %}
+				<div class="card m-3 text-lightPrimary" style="width: 18rem;">
+					<img src="{{ vich_uploader_asset( surf_board ) }}" class="card-img-top" alt="surf" ">
+					<div class="card-body bg-mainBlue ">
+						<h5 class="card-title">Name:
+							{{ surf_board.nickname }}
+						</h5>
+						<h6 class="card-subtitle mb-2">Length :
+							{{ surf_board.length }}</h6>
+						<p class="card-text">Review :
+							{{ surf_board.review }}</p>
+						<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+							<a href="{{ path('app_surf_board_show', {'id': surf_board.id}) }}" class="btn btn-primary btn-lg bg-lightPrimary text-mainBlue">
+								<i class="fas fa-link"></i>
+								View more</a>
+						</div>
+
+
+					</div>
+				</div>
+
+			{% else %}
+
+				<p colspan="15">no records found</p>
+
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
