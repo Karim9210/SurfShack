@@ -34,8 +34,8 @@ class SurfBoardType extends AbstractType
             ->add('boardPictureFile', VichFileType::class, [
                 'required'      => false,
                 'label' => false,
-                'allow_delete'  => true, // not mandatory, default is true
-                'download_uri' => true, // not mandatory, default is true
+                'allow_delete'  => false, // not mandatory, default is true
+                'download_uri' => false, // not mandatory, default is true
             ]);
     }
 
