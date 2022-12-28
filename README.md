@@ -13,10 +13,7 @@ The project includes several files:
         The public/index.php file is the entry point of the application. It contains the code that connects to the database and loads the different pages of the application. The file 'index.php' in the Symfony framework is the main entry point for your application. It is responsible for loading all the files and libraries needed to run your application. it creates a new 'Kernel' Symfony object, which is the main class of the framework.
         The 'Kernel' is used to process the current HTTP request and generate a response. Finally, the response is sent to the client and the 'Kernel' is complete.
 
-
-
-The src directory contains many important subdirectories and files :
-
+        The src directory contains many important subdirectories and files :
 
         The src/Controller directory contains the application controllers. Each controller manages a page or a feature of the application.A controller in the Symfony framework is a class that contains methods that can be called to handle an HTTP request. The controller is responsible for retrieving the necessary data, processing that data, and generating a response to send back to the client.
 
