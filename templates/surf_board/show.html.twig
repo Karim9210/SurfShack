@@ -4,61 +4,115 @@
 {% endblock %}
 
 {% block body %}
-	<h1>SurfBoard
-		{{ surf_board.nickname }}</h1>
-	<div class="d-flex justify-content-center align-items-center flex-column mb-4" style="height:100;">
 
-		<div class="row">
-			<div class="col-sm-3">
-				<img src="{{ vich_uploader_asset( surf_board ) }}" class="rounded-circle" style="height: 200px;width:auto" alt="{{ surf_board.nickname }}"/>
+
+	{% block content %}
+
+		<div class="bg-lightPrimary w-100">
+			<div style="border-bottom:solid; border-bottom-color:var(--mainBlue)">
+				<h1 class=" ps-2 mt-2 mx-5 text-mainBlue" style="letter-spacing:5px">
+					{{surf_board.nickname|title}}
+				</h1>
 			</div>
 		</div>
-	</div>
+
+		<div class="bg-lightPrimary p-4">
+			<div
+				class="bg-lightPrimary col-md-6 mx-auto my-5 border-start border-end shadow-lg text-mainBlue">
+
+				{# first section  #}
+				<div
+					class="d-flex  flex-column  p-4">
+					{# info #}
+					<div class="d-flex flex-column w-100 ps-2 justify-content-around">
+						<div class="w-100 d-flex flex-column justify-content-center">
+
+							<div class="d-flex flex-column justify-content-between ">
+								<div class="d-flex justify-content-between w-100">
 
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nickname</th>
-				<th>Length</th>
-				<th>Width</th>
-				<th>Thickness</th>
-				<th>Type</th>
-				<th>Material</th>
-				<th>Shaper</th>
-				<th>Brand</th>
-				<th>Review</th>
-				<th>DatePurchase</th>
-				<th>Price</th>
-				<th>New</th>
-				<th>Picture</th>
-				<th>actions</th>
-			</tr>
-		</thead>
+									<div class="d-flex flex-row ">
+										<div class="d-flex flex-column justify-content-center w-100">
+											<div class="d-flex justify-content-between w-100">
+												<p style="font-family: var(--font-secondary);" class="text-mainBlue text-shadow-lg lh-sm fs-1 ">{{surf_board.nickname|title}}</p>
 
-		<tbody>
-			<tr>
-				<td>{{ surf_board.nickname }}</td>
-				<td>{{ surf_board.length }}</td>
-				<td>{{ surf_board.width }}</td>
-				<td>{{ surf_board.thickness }}</td>
-				<td>{{ surf_board.type }}</td>
-				<td>{{ surf_board.material }}</td>
-				<td>{{ surf_board.shaper }}</td>
-				<td>{{ surf_board.brand }}</td>
-				<td>{{ surf_board.review }}</td>
-				<td>{{ surf_board.datePurchase ? surf_board.datePurchase|date('Y-m-d') : '' }}</td>
-				<td>{{ surf_board.price }}</td>
-				<td>{{ surf_board.new ? 'Yes' : 'No' }}</td>
-				{# <td>{{ surf_board.picture }}</td> #}
-				<td>
-					<a href="{{ path('app_surf_board_edit', {'id': surf_board.id}) }}">edit</a>
-				</td>
-			</tr>
 
-		</tbody>
-	</table>
+											</div>
 
-	<a href="{{ path('app_surf_board_new') }}">Create new</a>
+											<p class="text-mainBlue fs-3 fst-italic p-0 m-0">Length :
+												{{ surf_board.length|capitalize}}
+
+											</p>
+											<p class="text-mainBlue fs-5 fw-semibold p-0 m-0">Width :
+												{{surf_board.width}}</p>
+
+											<p class="text-mainBlue fs-5 fw-semibold p-0 m-0">Thickness :
+												{{surf_board.thickness}}</p>
+
+											<p class="text-mainBlue fs-5 fw-semibold">Type :
+												{{surf_board.type}}</p>
+
+										</div>
+										<div class="d-flex">
+											<img src="{{ vich_uploader_asset( surf_board ) }}" alt="surfboard" style="max-height: 15Rem; object-fit:cover; margin-left: 4Rem">
+										</div>
+									</div>
+									<hr class="border-3">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				{# second section description #}
+				<div class="border-top border-bottom border-mainBlue  p-4" style="background-color: var(--kakiOpacity)">
+					<h3>Description</h3>
+					{% if surf_board.new == true %}
+						<p>It was a new board when i bought it.</p>
+					{% else %}
+
+						<p colspan="15">2nd hands</p>
+
+					{% endif %}
+					<p>{{surf_board.review}}</p>
+				</div>
+
+				{# third section infos achat #}
+				<div class="p-4 d-flex justify-content-between">
+					<div>
+						<strong>Price :
+						</strong>
+						{{surf_board.price|capitalize}}€</p>
+					<p>
+						<strong>Material :
+						</strong>
+						{{surf_board.material|capitalize}}
+					</p>
+
+					<p>
+						<strong>Shaper :
+						</strong>
+						{{surf_board.shaper|capitalize}}</p>
+					<p class="mb-0">
+						<strong>Date Of Purchase :
+						</strong>
+						{{ surf_board.datePurchase ? surf_board.datePurchase|date('Y-m-d') : '' }}</p>
+
+
+				</div>
+
+			</div>
+			{# fifth section buttons modify and return #}
+			<div class="d-flex justify-content-center p-4">
+
+				<div class="d-flex gap-5">
+					<a href="{{ path('app_surf_board_edit', {'id': surf_board.id}) }}" type="button" class="btn btn-mainBlue my-3 p-2 rounded h-2">
+						Update
+					</a>
+				</div>
+
+			</div>
+		</div>
+	{% endblock %}
 {% endblock %}
